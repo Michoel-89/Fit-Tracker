@@ -3,6 +3,9 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+load_dotenv()
 import psycopg2
 import os
 
@@ -18,5 +21,7 @@ metadata = MetaData(naming_convention={
 db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
+
+bcrypt = Bcrypt(app)
 
 CORS(app)
