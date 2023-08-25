@@ -1,6 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from config import db, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql import func
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -8,6 +9,11 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     _password_hash = db.Column(db.String(50), nullable=False)
+
+    user_messages = db.relationship('Message', backref='user')
+    workouts = db.relationship('UserWorkouts', backref='user')
+
+    serialize_rules = ('-user_messages.user', '-_password_hash', 'workouts.user',)
 
     @hybrid_property
     def password_hash(self):
@@ -19,11 +25,33 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
-class Workouts(db.Model, SerializerMixin):
+class Workout(db.Model, SerializerMixin):
     __tablename__ = 'workouts'
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    body_section = db.Column(db.String(50))
+    description = db.Column(db.String(200))
 
-class Messages(db.Model, SerializerMixin):
+    users = db.relationship('UserWorkouts', backref='workout')
+
+    serialize_rules = ('-users.workout',)
+
+class UserWorkouts(db.Model, SerializerMixin):
+    __tablename__ = 'user_workouts'
+    id = db.Column(db.Integer, primary_key=True)
+    workout_count = db.Column(db.Integer)
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    time_updated = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'))
+
+    serialize_rules = ('-workout.users', '-user.workouts',)
+
+class Message(db.Model, SerializerMixin):
     __tablename__ = 'messages'
     id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(500))
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    serialize_rules = ('-user.user_messages',)
