@@ -7,6 +7,18 @@ fake = Faker()
 
 if __name__ == '__main__':
     with app.app_context():
+        # UserWorkout.query.delete()
+        # Workout.query.delete()
+        # Message.query.delete()
+        # User.query.delete()
+        # for i in range(20):
+        #     user = User(
+        #         username=fake.name(),
+        #     )
+        #     user.password_hash = '123'
+        #     db.session.add(user)
+        #     db.session.commit()
+
         # for i in bodyweight_exercises:
         #     workout = Workout(
         #         name=i,
@@ -15,18 +27,12 @@ if __name__ == '__main__':
         #     )
         #     db.session.add(workout)
         #     db.session.commit()
-        # for i in range(20):
-        #     user = User(
-        #         username=fake.name(),
-        #     )
-        #     user._password_hash = '123'
-        #     db.session.add(user)
-        #     db.session.commit()
+
         # for i in range(20):
         #     userWorkout = UserWorkout(
         #         workout_count=randint(1, 20),
-        #         user_id=randint(1, 5),
-        #         workout_id=randint(1, 20)
+        #         user_id=randint(85, 85),
+        #         workout_id=randint(85, 105)
         #     )
         #     db.session.add(userWorkout)
         #     db.session.commit()
