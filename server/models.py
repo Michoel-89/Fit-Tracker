@@ -8,7 +8,7 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
-    _password_hash = db.Column(db.String(50), nullable=False)
+    _password_hash = db.Column(db.String(250), nullable=False)
 
     user_messages = db.relationship('Message', backref='user', cascade='all')
     workouts = db.relationship('UserWorkout', backref='user', cascade='all')
