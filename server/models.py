@@ -10,10 +10,10 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     _password_hash = db.Column(db.String(50), nullable=False)
 
-    user_messages = db.relationship('Message', backref='user')
-    workouts = db.relationship('UserWorkouts', backref='user')
+    user_messages = db.relationship('Message', backref='user', cascade='all')
+    workouts = db.relationship('UserWorkout', backref='user', cascade='all')
 
-    serialize_rules = ('-user_messages.user', '-_password_hash', 'workouts.user',)
+    serialize_rules = ('-user_messages.user', '-_password_hash', '-workouts.user',)
 
     @hybrid_property
     def password_hash(self):
@@ -32,11 +32,11 @@ class Workout(db.Model, SerializerMixin):
     body_section = db.Column(db.String(50))
     description = db.Column(db.String(200))
 
-    users = db.relationship('UserWorkouts', backref='workout')
+    users = db.relationship('UserWorkout', backref='workout', cascade='all')
 
     serialize_rules = ('-users.workout',)
 
-class UserWorkouts(db.Model, SerializerMixin):
+class UserWorkout(db.Model, SerializerMixin):
     __tablename__ = 'user_workouts'
     id = db.Column(db.Integer, primary_key=True)
     workout_count = db.Column(db.Integer)
