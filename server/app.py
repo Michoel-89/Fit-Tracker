@@ -129,4 +129,4 @@ def logout():
     return {'error': 'session not found'}, 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5555)
