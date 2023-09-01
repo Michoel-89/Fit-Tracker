@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { Context } from '../App';
-import homeImg from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/man-working-out-2294361.jpg"
+import picsArray from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/pics"
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -82,7 +82,7 @@ function Login() {
     if (signup) {
       return (
         <>
-          <img alt="Man doing pushups" src={homeImg} className="w-full max-h-screen object-center object-cover"/>
+          <img alt="Man doing pushups" src={picsArray[0]} className="w-full max-h-screen object-center object-cover"/>
           <div className="absolute top-36 left-1/2 transform -translate-x-1/2 mx-auto p-6 min-w-[30%] bg-gray-100 bg-opacity-75 rounded-lg shadow-md">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -134,7 +134,7 @@ function Login() {
     else {
     return (
     <>
-      <img alt="Man doing pushups" src={homeImg} className="w-full max-h-screen object-center object-cover"/>
+      <img alt="Man doing pushups" src={picsArray[0]} className="w-full max-h-screen object-center object-cover"/>
       <div className="absolute top-36 left-1/2 transform -translate-x-1/2 mx-auto p-6 min-w-[30%] bg-gray-100 bg-opacity-75 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
