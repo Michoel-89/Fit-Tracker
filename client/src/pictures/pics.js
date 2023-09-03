@@ -11,7 +11,7 @@ import mountainClimbers from "/home/michoel/post-grad-apps/fit-tracker/client/sr
 import bodyweightRows from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/Bodyweight-Rows-Pull-Up.png"
 import stepUps from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/StepUps.jpg"
 import jumpingJacks from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/jumping-jack.jpg"
-import wallSits from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/man-squatting.jpg"
+import wallSits from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/wall-sit-isometric-exercises.jpg"
 import supermans from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/superman.jpg"
 import russianTwists from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/Seated-Russian-Twist.webp"
 import highKnees from "/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/Fit-man-doing-high-knees-cardio-exercise.jpg"
