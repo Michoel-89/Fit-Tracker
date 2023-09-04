@@ -118,9 +118,9 @@ function Login() {
                 </div>
               </form>
             <div className="mt-4 flex items-center justify-center">
-              <span className="text-sm text-gray-600">Already have an account?</span>
+              <span className="text-sm text-black-600">Already have an account?</span>
               <button
-                onClick={handleSignupLoginClick}
+                onSubmit={handleSignupLoginClick}
                 className="ml-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Login
@@ -170,7 +170,7 @@ function Login() {
             </div>
           </form>
         <div className="mt-4 flex items-center justify-center">
-          <span className="text-sm text-gray-600">Don't have an account?</span>
+          <span className="text-sm text-black-600">Don't have an account?</span>
           <button
             onClick={handleSignupLoginClick}
             className="ml-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"

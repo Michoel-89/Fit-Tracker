@@ -1,9 +1,12 @@
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import MyWorkout from './pages/MyWorkout';
+import Navbar from './componants/Navbar';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
+import LoggedInNavbar from './componants/LoggedInNavbar';
 export const Context = React.createContext()
 
 function App() {
@@ -37,8 +40,10 @@ function App() {
   return (
       <>
         <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts}}>
+        {isLoggedin ? <LoggedInNavbar /> : <Navbar />}
           <Routes>
               <Route path='/' element={isLoggedin ? <Home /> : <Login />} />
+              <Route path='/myWorkouts' element={<MyWorkout />} />
           </Routes>
         </Context.Provider>
       </>
