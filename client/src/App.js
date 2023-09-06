@@ -12,7 +12,10 @@ export const Context = React.createContext()
 function App() {
     const [isLoggedin, setIsLoggedIn] = useState(false)
     const [workouts, setWorkouts] = useState(null)
+    const [myWorkouts, setMyWorkouts] = useState(null)
+    const [user, setUser] = useState(null)
     const [messages, setMessages] = useState(null)
+
     useEffect(() => {
           fetch('check_session')
           .then(r => r.json())
@@ -20,26 +23,37 @@ function App() {
           if(r.error === 'unauthorized') {
               return
           }
+          setUser(r)
           setIsLoggedIn(true)
       })
+      .then(
+            fetch('workouts')
+            .then(r => r.json())
+            .then(r => {
+              setWorkouts(r)
+            })
+      )
+      .then(
+            fetch('messages')
+            .then(r => r.json())
+            .then(r => {
+              setMessages(r)
+        })
+      )
+      .then(
+        fetch('user_workouts')
+        .then(r => r.json())
+        .then(r => {
+          setMyWorkouts(r)
+        })
+      )
       }, [])
-    useEffect(() => {
-          fetch('workouts')
-          .then(r => r.json())
-          .then(r => {
-            setWorkouts(r)
-          })
-      }, [])
-    useEffect(() => {
-          fetch('messages')
-          .then(r => r.json())
-          .then(r => {
-            setMessages(r)
-          })
-      }, [])
+
+    
+      
   return (
       <>
-        <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts}}>
+        <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts, myWorkouts, setMyWorkouts, user }}>
         {isLoggedin ? <LoggedInNavbar /> : <Navbar />}
           <Routes>
               <Route path='/' element={isLoggedin ? <Home /> : <Login />} />
