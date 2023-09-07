@@ -6,14 +6,32 @@ function Workout() {
     const [pending, setPending] = useState([])
     const [pendingHover, setPendingHover] = useState(null)
     const [revealWorkoutForm, setRevealWorkoutForm] = useState(null)
+    const [workoutCount, setWorkoutCount] = useState('')
     
     if (!context.workouts) {
         return 
     }
 
-    function handleCompletedWorkout(e) {
+    function handleCompletedWorkout(e, id) {
         e.preventDefault()
-        console.log('completed')
+        const newWorkout = {
+            workout_count: Number(workoutCount),
+            user_id: context.user.id,
+            workout_id: id
+        }
+        console.log(newWorkout)
+        fetch('user_workouts', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newWorkout)
+          })
+          .then(r => r.json())
+          .then(r => {
+            const newList = [...context.myWorkouts, r]
+            context.setMyWorkouts(newList)
+          })
     }
 
     return <div className=" text-center grid grid-cols-3 gap-4">
@@ -22,7 +40,7 @@ function Workout() {
         <div key={workout.id} className="border p-4">
             
             {revealWorkoutForm === i ? 
-            <form onSubmit={(e) => handleCompletedWorkout(e)}>
+            <form onSubmit={(e) => handleCompletedWorkout(e, workout.id)}>
                 <h2>Workout Details</h2>
                 <p>
                   Workout Name: <strong>{workout.name}</strong>
@@ -35,6 +53,8 @@ function Workout() {
                   type="number"
                   placeholder="Enter workout count"
                   required
+                  value={workoutCount}
+                  onChange={(e) => setWorkoutCount(e.target.value)}
                 />
                 <button className="border" type="submit">Submit</button>
             </form>
