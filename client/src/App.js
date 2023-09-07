@@ -21,32 +21,34 @@ function App() {
           .then(r => r.json())
           .then(r => {
           if(r.error === 'unauthorized') {
+              setUser(null)
               return
           }
-          setUser(r)
           setIsLoggedIn(true)
+          setUser(r)
       })
-      .then(
-            fetch('workouts')
-            .then(r => r.json())
-            .then(r => {
-              setWorkouts(r)
-            })
-      )
-      .then(
-            fetch('messages')
-            .then(r => r.json())
-            .then(r => {
-              setMessages(r)
-        })
-      )
-      .then(
-        fetch('user_workouts')
+      }, [isLoggedin])
+    
+    useEffect(() => {
+        fetch('workouts')
         .then(r => r.json())
         .then(r => {
-          setMyWorkouts(r)
+          setWorkouts(r)
         })
-      )
+        .then(
+              fetch('messages')
+              .then(r => r.json())
+              .then(r => {
+                setMessages(r)
+          })
+        )
+        .then(
+          fetch('user_workouts')
+          .then(r => r.json())
+          .then(r => {
+            setMyWorkouts(r)
+          })
+        )
       }, [])
 
     
