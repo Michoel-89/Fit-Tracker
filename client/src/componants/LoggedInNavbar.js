@@ -15,6 +15,9 @@ function LoggedInNavbar() {
     <h2 className="text-white font-bold text-xl">Fit Tracker</h2>
     <div className="space-x-4">
         <button className="text-white px-4 py-2 rounded">
+            <Link to="/">Home</Link>
+        </button>
+        <button className="text-white px-4 py-2 rounded">
             <Link to="/MyWorkouts">My Workouts</Link>
         </button>
         <button className="text-white px-4 py-2 rounded" onClick={handleLogoutClick}>
