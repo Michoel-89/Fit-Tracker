@@ -60,7 +60,7 @@ def update_username(id):
     user_workout_to_update = UserWorkout.query.filter_by(id=id).first()
 
     if not user_workout_to_update:
-        return {'error': 'not user found'}, 404   
+        return {'error': 'user not found'}, 404   
     
     for attr in data:
         setattr(user_workout_to_update, attr, data[attr])
@@ -74,9 +74,9 @@ def delete_user_workout(id):
     try:
         db.session.delete(user_workout_to_delete)
         db.session.commit()
-        return {'message': 'stock deleted'}, 204
+        return {'message': 'user workout deleted'}, 204
     except LookupError:
-        return {'error': 'user_stock not found'}, 404
+        return {'error': 'user workout not found'}, 404
     
 @app.delete('/messages/<int:id>')
 def delete_message(id):
@@ -84,9 +84,9 @@ def delete_message(id):
     try:
         db.session.delete(message_to_delete)
         db.session.commit()
-        return {'message': 'stock deleted'}, 204
+        return {'message': 'message deleted'}, 204
     except LookupError:
-        return {'error': 'user_stock not found'}, 404
+        return {'error': 'message not found'}, 404
 
 @app.post('/signup')
 def signup():
