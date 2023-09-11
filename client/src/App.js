@@ -30,23 +30,23 @@ function App() {
       }, [isLoggedin])
     
     useEffect(() => {
+        fetch('user_workouts')
+        .then(r => r.json())
+        .then(r => {
+          setMyWorkouts(r)
+        })
+        .then(
         fetch('workouts')
         .then(r => r.json())
         .then(r => {
           setWorkouts(r)
-        })
+          })
+        )
         .then(
               fetch('messages')
               .then(r => r.json())
               .then(r => {
                 setMessages(r)
-          })
-        )
-        .then(
-          fetch('user_workouts')
-          .then(r => r.json())
-          .then(r => {
-            setMyWorkouts(r)
           })
         )
       }, [])
