@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Context } from "../App"
-import trashcan from '/home/michoel/post-grad-apps/fit-tracker/client/src/pages/trash.jpg'
+import trashcan from '/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/trash.jpg'
 function MyWorkout() {
     const context = useContext(Context)
     function handleDeleteWorkout(id) {
@@ -16,7 +16,9 @@ function MyWorkout() {
             context.setMyWorkouts(updatedMyWorkoutList)
           })
     }
-
+    if (!context.myWorkouts) {
+      return null
+    }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {context.myWorkouts.map((workout) => (
