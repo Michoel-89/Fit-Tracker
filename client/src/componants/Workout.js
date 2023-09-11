@@ -8,7 +8,7 @@ function Workout() {
     const [revealWorkoutForm, setRevealWorkoutForm] = useState(null)
     
     if (!context.workouts) {
-        return 
+        return <h2 className="text-center">Loading...</h2>
     }
 
     function handleCompletedWorkout(e, id, i) {
