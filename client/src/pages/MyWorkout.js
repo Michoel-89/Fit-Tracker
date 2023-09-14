@@ -1,6 +1,26 @@
 import { useContext } from "react"
 import { Context } from "../App"
 import trashcan from '/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/trash.jpg'
+
+function reformatTimestamp(timestamp) {
+  const dateParts = timestamp.split(' ');
+  const date = new Date(timestamp);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  let period = "AM";
+
+  if (hours >= 12) {
+    period = "PM";
+    if (hours > 12) {
+      date.setHours(hours - 12);
+    }
+  }
+  
+  const formattedTime = `${dateParts[0]} ${date.getHours()}:${String(minutes).padStart(2, '0')}${period}`;
+
+  return formattedTime;
+}
+
 function MyWorkout() {
     const context = useContext(Context)
     function handleDeleteWorkout(id) {
@@ -25,7 +45,7 @@ function MyWorkout() {
             <div key={workout.id} className="bg-white p-4 rounded-lg shadow-md">
               <h1 className="text-xl text-center font-semibold">{workout.workout.name}</h1>
               <h2 className="text-lg text-center">{workout.workout_count}</h2>
-              <h2 className="text-sm text-center text-gray-500">{workout.time_created}</h2>
+              <h2 className="text-sm text-center text-gray-500">{reformatTimestamp(workout.time_created)}</h2>
               <div className="">
                     <img 
                     onClick={() => handleDeleteWorkout(workout.id)} 
