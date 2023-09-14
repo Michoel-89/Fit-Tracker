@@ -56,16 +56,9 @@ function Message() {
         <div className="fixed bottom-0 right-0 m-4">
           {revealMsgs ? (
             <div className="bg-white p-4 rounded-lg shadow-lg">
-            <button
-                onClick={() => setRevealMsgs(false)}
-                className="text-blue-500 hover:text-blue-700 font-semibold"
-            >
-                Close
-            </button>
             <h1 className="text-3xl font-bold mb-4">Fit Community</h1>
-            <div className="max-h-80 overflow-y-auto">
+            <div className="max-h-[60vh] overflow-y-auto">
             {context.messages.map((message) => {
-                console.log(message.user.id === context.user.id)
                 return <div key={message.id} className={message.user.id === context.user.id ? 'bg-green-300 p-3 mb-4 rounded-lg shadow-md ml-10' :'bg-gray-100 p-3 mb-4 rounded-lg shadow-md mr-10'}>
                 <div className='flex items-right justify-between'>
                     <div>
@@ -86,6 +79,14 @@ function Message() {
             </div>
             <button onClick={() => handleSendMessage()} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded font-semibold">
                 Send Message
+            </button>
+            </div>
+            <div className="flex justify-end mt-2">
+            <button
+                onClick={() => setRevealMsgs(false)}
+                className="text-blue-500 hover:text-blue-700 font-semibold"
+            >
+                Close
             </button>
             </div>
             </div>
