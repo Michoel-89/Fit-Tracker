@@ -7,14 +7,6 @@ function Login() {
     const [password, setPassword] = useState('');
     const [signup, setSignup] = useState(false)
     const context = useContext(Context);
-
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-      };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-      };
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -78,12 +70,13 @@ function Login() {
         setUsername('');
         setPassword('');
       };
-    if (signup) {
-      return (
+
+      return <>
+        {signup ?
         <>
           <img alt="Man doing pushups" src={workoutPic} className="w-full max-h-screen object-center object-cover"/>
           <div className="absolute top-36 left-1/2 transform -translate-x-1/2 mx-auto p-6 min-w-[30%] bg-gray-100 bg-opacity-75 rounded-lg shadow-md">
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
                 <div>
                   <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                     Username:
@@ -92,7 +85,7 @@ function Login() {
                     type="text"
                     id="username"
                     value={username}
-                    onChange={handleUsernameChange}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -104,7 +97,7 @@ function Login() {
                     type="password"
                     id="password"
                     value={password}
-                    onChange={handlePasswordChange}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -120,7 +113,7 @@ function Login() {
             <div className="mt-4 flex items-center justify-center">
               <span className="text-sm text-black-600">Already have an account?</span>
               <button
-                onSubmit={handleSignupLoginClick}
+                onClick={() => handleSignupLoginClick()}
                 className="ml-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Login
@@ -128,14 +121,11 @@ function Login() {
           </div>
         </div>
     </>
-      )
-    }
-    else {
-    return (
+    :
     <>
       <img alt="Man doing pushups" src={workoutPic} className="w-full max-h-screen object-center object-cover"/>
       <div className="absolute top-36 left-1/2 transform -translate-x-1/2 mx-auto p-6 min-w-[30%] bg-gray-100 bg-opacity-75 rounded-lg shadow-md">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                 Username:
@@ -144,7 +134,7 @@ function Login() {
                 type="text"
                 id="username"
                 value={username}
-                onChange={handleUsernameChange}
+                onChange={(e) => setUsername(e.target.value)}
                 className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
@@ -156,7 +146,7 @@ function Login() {
                 type="password"
                 id="password"
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 px-3 py-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
@@ -172,16 +162,15 @@ function Login() {
         <div className="mt-4 flex items-center justify-center">
           <span className="text-sm text-black-600">Don't have an account?</span>
           <button
-            onClick={handleSignupLoginClick}
+            onClick={() => handleSignupLoginClick()}
             className="ml-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
           >
             Sign up
           </button>
       </div>
     </div>
+  </>}
 </>
-  )
-}
 }
 
 export default Login

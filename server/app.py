@@ -1,5 +1,5 @@
 from flask_migrate import Migrate
-from config import app, db
+from config import app, db, socketio, emit
 from models import db, User, Workout, UserWorkout, Message
 from flask import request, session
 
@@ -36,17 +36,18 @@ def add_user_workout():
     except ValueError:
         return {'error': 'unable to process your input'}, 422
     
-@app.post('/messages')
-def add_message():
-    data = request.get_json()
+@socketio.on('message')  # Use the same event name as in your React frontend
+def handle_message(message):
     try:
         new_message = Message(
-            text=data.get('text'),
-            user_id=data.get('user_id')
+            text=message.get('text'),
+            user_id=message.get('user_id')
         )
         db.session.add(new_message)
         db.session.commit()
-        return new_message.to_dict(), 201
+
+        # Emit the new message to all connected clients
+        emit('message', new_message.to_dict(), broadcast=True)
     except ValueError:
         return {'error': 'unable to process your input'}, 422
     
@@ -129,4 +130,4 @@ def logout():
     return {'error': 'session not found'}, 404
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+    socketio.run(app, debug=True, port=5555)

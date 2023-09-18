@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
+from flask_socketio import SocketIO, emit
 load_dotenv()
 import psycopg2
 import os
@@ -24,5 +25,5 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 bcrypt = Bcrypt(app)
-
-CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+CORS(app, resources={r"/*":{"origins":"*"}})

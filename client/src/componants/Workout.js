@@ -33,6 +33,7 @@ function Workout() {
             context.setMyWorkouts(newList)
           })
     }
+    
     let filteredWorkouts = context.workouts.filter((workout) => {
         return (context.workoutDropdown === 'All' || context.workoutDropdown.includes(workout.body_section))
     })
