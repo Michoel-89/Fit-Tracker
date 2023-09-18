@@ -15,6 +15,7 @@ function App() {
     const [myWorkouts, setMyWorkouts] = useState(null)
     const [user, setUser] = useState(null)
     const [messages, setMessages] = useState(null)
+    const [workoutDropdown, setWorkoutDropdown] = useState('All')
 
     useEffect(() => {
           fetch('check_session')
@@ -55,7 +56,7 @@ function App() {
       
   return (
       <>
-        <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts, myWorkouts, setMyWorkouts, user }}>
+        <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts, myWorkouts, setMyWorkouts, user, workoutDropdown, setWorkoutDropdown }}>
         {isLoggedin ? <LoggedInNavbar /> : <Navbar />}
           <Routes>
               <Route path='/' element={isLoggedin ? <Home /> : <Login />} />

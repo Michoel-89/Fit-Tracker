@@ -33,9 +33,12 @@ function Workout() {
             context.setMyWorkouts(newList)
           })
     }
+    let filteredWorkouts = context.workouts.filter((workout) => {
+        return (context.workoutDropdown === 'All' || context.workoutDropdown.includes(workout.body_section))
+    })
 
     return <div className=" text-center grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {context.workouts.map((workout, i) => {
+        {filteredWorkouts.map((workout, i) => {
         return (
         <div key={workout.id} className="border p-4">
             
@@ -43,7 +46,7 @@ function Workout() {
             <form onSubmit={(e) => handleCompletedWorkout(e, workout.id, i)} className="">
                 <h2 className="text-2xl font-semibold mb-2 text-gray-900">{workout.name}</h2>
                 <div className="aspect-w-1 aspect-h-2 mb-4">
-                    <img className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/>
+                    {context.workoutDropdown === 'All' ? <img className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/> : null}
                 </div>
                 <h2 className="text-2xl font-bold">Workout Count</h2>
                 <div className="flex flex-wrap justify-around pt-5 items-center">
@@ -63,7 +66,7 @@ function Workout() {
             : // display workout
             <><h2 className="text-2xl font-semibold mb-2 text-gray-900">{workout.name}</h2>
             <div className="aspect-w-1 aspect-h-2 mb-4">
-                <img className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/>
+                {context.workoutDropdown === 'All' ? <img className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/> : null}
             </div>
             <h4 className="text-lg font-medium mb-2 text-black-500">{workout.body_section}</h4>
             {!pending.includes(i) ?
