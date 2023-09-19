@@ -34,6 +34,13 @@ function Message() {
             context.setMessages([...context.messages, newMessage]);
           }
       })
+      socket.on('message_deleted', (deletedMsg) => {
+        if (Array.isArray(context.messages)) {
+          let updatedMessages = context.messages.filter((message) => message.id !== deletedMsg.msg_id)
+          context.setMessages(updatedMessages);
+        }
+    })
+
   }, [context]);
 
   function handleSendMessage() {
@@ -50,6 +57,13 @@ function Message() {
     setMessage('');
 }
 
+function handleDeleteMessage(id) {
+  const msgToDelete = {
+    msg_id: id
+  }
+  socket.emit('delete', msgToDelete);
+}
+
     if (!context.messages) {
         return 
     }
@@ -61,13 +75,18 @@ function Message() {
             <div className="max-h-[60vh] max-w-[60vh] overflow-y-auto">
             {context.messages.map((msg) => {
                 return <div key={msg.id} className={msg.user.id === context.user.id ? 'bg-green-300 p-3 mb-4 rounded-lg shadow-md ml-10' :'bg-gray-100 p-3 mb-4 rounded-lg shadow-md mr-10'}>
-                <div className='flex items-right justify-between'>
-                    <div>
-                      <h2 className="font-semibold text-lg">{msg.user.id === context.user.id ? 'Me' : msg.user.username}:</h2>
-                      <p className="text-gray-600">{msg.text}</p>
+                  <div className="flex flex-wrap justify-between ">
+                    <h2 className="font-semibold text-lg">{msg.user.id === context.user.id ? 'Me' : msg.user.username}:</h2>
+                    <p className="text-sm text-gray-500">{reformatTimestamp(msg.time_created)}</p>
+                  </div>
+                  <div className='flex flex-wrap items-right justify-between'>
+                      <div className="flex flex-row">
+                        <p className="text-gray-600">{msg.text}</p>
                       </div>
-                      <p className="text-sm mb-6 text-gray-500">{reformatTimestamp(msg.time_created)}</p>
-                    </div>
+                  </div>
+                  {msg.user.id === context.user.id && <div className="flex justify-end mt-2">
+                        <button className="text-red-500" onClick={() => handleDeleteMessage(msg.id)}>x</button>
+                      </div>}
                 </div>
             })}
             <div className="mb-4">
