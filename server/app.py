@@ -36,7 +36,7 @@ def add_user_workout():
     except ValueError:
         return {'error': 'unable to process your input'}, 422
     
-@socketio.on('message')  # Use the same event name as in your React frontend
+@socketio.on('message')
 def handle_message(message):
     try:
         new_message = Message(
@@ -50,6 +50,24 @@ def handle_message(message):
         emit('message', new_message.to_dict(), broadcast=True)
     except ValueError:
         return {'error': 'unable to process your input'}, 422
+    
+@socketio.on('delete')
+def handle_delete(delete_data):
+    try:
+        message_id = delete_data.get('msg_id')
+
+        # Find the message in the database by its ID
+        deleted_message = Message.query.get(message_id)
+
+        if deleted_message:
+            # Delete the message from the database
+            db.session.delete(deleted_message)
+            db.session.commit()
+
+            # Emit a message to all connected clients indicating the message was deleted
+            emit('message_deleted', {'msg_id': message_id}, broadcast=True)
+    except ValueError:
+        return {'error': 'unable to find message'}, 404
     
 @app.patch('/user_workouts/<int:id>')
 def update_username(id):
