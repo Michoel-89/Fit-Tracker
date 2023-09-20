@@ -10,7 +10,7 @@ import LoggedInNavbar from './componants/LoggedInNavbar';
 export const Context = React.createContext()
 
 function App() {
-    const [isLoggedin, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [workouts, setWorkouts] = useState(null)
     const [myWorkouts, setMyWorkouts] = useState(null)
     const [user, setUser] = useState(null)
@@ -28,38 +28,41 @@ function App() {
           setIsLoggedIn(true)
           setUser(r)
       })
-      }, [isLoggedin])
+          .then(() => {
+            if (isLoggedIn) {
+              fetch('user_workouts')
+              .then(r => r.json())
+              .then(r => {
+                setMyWorkouts(r)
+            })
+            }
+          }
+          )
+      }, [isLoggedIn])
     
     useEffect(() => {
-        fetch('user_workouts')
-          .then(r => r.json())
-          .then(r => {
-            setMyWorkouts(r)
-        })
-        .then(
-            fetch('workouts')
+          fetch('workouts')
               .then(r => r.json())
               .then(r => {
                 setWorkouts(r)
           })
-        )
-        .then(
-            fetch('messages')
-              .then(r => r.json())
-              .then(r => {
-                setMessages(r)
-          })
-        )
+          .then(
+              fetch('messages')
+                .then(r => r.json())
+                .then(r => {
+                  setMessages(r)
+            })
+          )
       }, [])
 
     
       
   return (
       <>
-        <Context.Provider value={{ isLoggedin, setIsLoggedIn, messages, setMessages, workouts, setWorkouts, myWorkouts, setMyWorkouts, user, workoutDropdown, setWorkoutDropdown }}>
-        {isLoggedin ? <LoggedInNavbar /> : <Navbar />}
+        <Context.Provider value={{ isLoggedIn, setIsLoggedIn, messages, setMessages, workouts, setWorkouts, myWorkouts, setMyWorkouts, user, workoutDropdown, setWorkoutDropdown }}>
+        {isLoggedIn ? <LoggedInNavbar /> : <Navbar />}
           <Routes>
-              <Route path='/' element={isLoggedin ? <Home /> : <Login />} />
+              <Route path='/' element={isLoggedIn ? <Home /> : <Login />} />
               <Route path='/myWorkouts' element={<MyWorkout />} />
           </Routes>
         </Context.Provider>
