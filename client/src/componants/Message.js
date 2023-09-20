@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import { Context } from "../App"
 import messageIcon from '/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/messageIcon.jpg'
 import io from 'socket.io-client';
-const socket = io('http://localhost:5555');
+const socket = io('');
 
 function reformatTimestamp(timestamp) {
   const dateParts = timestamp.split(' ');
@@ -105,9 +105,6 @@ function handleDeleteMessage(id) {
             <button
                 onClick={() => {
                   setRevealMsgs(false)
-                  if (socket) {
-                    socket.close();
-                  }
                 }}
                 className="text-blue-500 hover:text-blue-700 font-semibold"
             >

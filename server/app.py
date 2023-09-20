@@ -57,7 +57,7 @@ def handle_delete(delete_data):
         message_id = delete_data.get('msg_id')
 
         # Find the message in the database by its ID
-        deleted_message = Message.query.get(message_id)
+        deleted_message = Message.query.filter_by(id=message_id).first()
 
         if deleted_message:
             # Delete the message from the database
