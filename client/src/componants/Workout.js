@@ -47,7 +47,7 @@ function Workout() {
             <form onSubmit={(e) => handleCompletedWorkout(e, workout.id, i)} className="">
                 <h2 className="text-2xl font-semibold mb-2 text-gray-900">{workout.name}</h2>
                 <div className="aspect-w-1 aspect-h-2 mb-4">
-                    {context.workoutDropdown === 'All' ? <img className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/> : null}
+                    {context.workoutDropdown === 'All' ? <img loading="lazy" className="w-full h-80 object-cover" src={picsArray[i]} alt={workout.name}/> : null}
                 </div>
                 <h2 className="text-2xl font-bold">Workout Count</h2>
                 <div className="flex flex-wrap justify-around pt-5 items-center">

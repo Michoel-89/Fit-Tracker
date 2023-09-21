@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
 import { useContext } from 'react';
 import { Context } from '../App';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChartainer } from 'recharts';
-
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { reformatTimestamp } from '../functions/functions';
 
 function Chart() {
   const context = useContext(Context)
@@ -11,7 +10,7 @@ function Chart() {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white bg-opacity-90 p-2 border border-gray-300">
-          <p>{`Date: ${label}`}</p>
+          <p>{`Date: ${reformatTimestamp(label)}`}</p>
           <p>{`${payload[0].value} ${payload[1].value}`}</p>
         </div>
       );

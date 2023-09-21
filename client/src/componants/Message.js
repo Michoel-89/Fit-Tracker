@@ -2,26 +2,8 @@ import { useContext, useState, useEffect } from "react"
 import { Context } from "../App"
 import messageIcon from '/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/messageIcon.jpg'
 import io from 'socket.io-client';
-const socket = io('');
-
-function reformatTimestamp(timestamp) {
-  const dateParts = timestamp.split(' ');
-  const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  let period = "AM";
-
-  if (hours >= 12) {
-    period = "PM";
-    if (hours > 12) {
-      date.setHours(hours - 12);
-    }
-  }
-  
-  const formattedTime = `${dateParts[0]} ${date.getHours()}:${String(minutes).padStart(2, '0')}${period}`;
-
-  return formattedTime;
-}
+import { reformatTimestamp } from '../functions/functions';
+const socket = io('http://127.0.0.1:5555')
 
 function Message() {
     const [revealMsgs, setRevealMsgs] = useState(false)
@@ -29,18 +11,17 @@ function Message() {
     const context = useContext(Context)
 
     useEffect(() => {
-      socket.on('message', (newMessage) => {
+        socket.on('message', (newMessage) => {
+            if (Array.isArray(context.messages)) {
+              context.setMessages([...context.messages, newMessage]);
+            }
+        })
+        socket.on('message_deleted', (deletedMsg) => {
           if (Array.isArray(context.messages)) {
-            context.setMessages([...context.messages, newMessage]);
+            let updatedMessages = context.messages.filter((message) => message.id !== deletedMsg.msg_id)
+            context.setMessages(updatedMessages);
           }
-      })
-      socket.on('message_deleted', (deletedMsg) => {
-        if (Array.isArray(context.messages)) {
-          let updatedMessages = context.messages.filter((message) => message.id !== deletedMsg.msg_id)
-          context.setMessages(updatedMessages);
-        }
-    })
-
+        })
   }, [context]);
 
   function handleSendMessage() {
