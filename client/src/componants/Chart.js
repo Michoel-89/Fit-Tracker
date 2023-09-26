@@ -23,7 +23,7 @@ function Chart() {
       return <h2>Loading...</h2>
     }
     
-    return (<>
+    return (<div className='pt-5 '>
         <ResponsiveContainer height={400}>
         <BarChart
           width={400}
@@ -37,7 +37,7 @@ function Chart() {
           <Bar type="monotone" dataKey='workout.name' stroke="#8884d8" fill="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
-      </>
+      </div>
     );
   }
 export default Chart
