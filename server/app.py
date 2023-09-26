@@ -1,12 +1,13 @@
 from flask_migrate import Migrate
 from config import app, db, socketio, emit
 from models import db, User, Workout, UserWorkout, Message
-from flask import request, session
+from flask import request, session, render_template
 
 
 @app.route('/')
-def home():
-    return 'home'
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 @app.get('/workouts')
 def get_workouts():
@@ -148,4 +149,4 @@ def logout():
     return {'error': 'session not found'}, 404
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=5555)
+    socketio.run(app, port=5555)
