@@ -1,6 +1,6 @@
 from flask_migrate import Migrate
-from config import app, db, socketio, emit
-from models import db, User, Workout, UserWorkout, Message
+from server.config import app, db, socketio, emit
+from server.models import db, User, Workout, UserWorkout, Message
 from flask import request, session, render_template
 
 

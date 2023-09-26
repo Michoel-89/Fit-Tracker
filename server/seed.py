@@ -1,6 +1,6 @@
-from app import app
-from models import db, User, Workout, UserWorkout, Message
-from exercises import bodyweight_exercises
+from server.app import app
+from server.models import db, User, Workout, UserWorkout, Message
+from server.exercises import bodyweight_exercises
 from faker import Faker
 from random import randint
 fake = Faker()
