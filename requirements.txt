@@ -54,7 +54,7 @@ pure-eval==0.2.2
 pygame==2.5.0
 Pygments==2.15.1
 python-dateutil==2.8.2
-python-dotenv==1.0.0
+python-dotenv==0.21.1
 python-engineio==4.7.0
 python-socketio==5.9.0
 pytz==2023.3
