@@ -3,7 +3,7 @@ from server.config import app, db, socketio, emit
 from server.models import db, User, Workout, UserWorkout, Message
 from flask import request, session, render_template
 
-
+@app.route('')
 @app.route('/')
 @app.route('/<int:id>')
 def index(id=0):
