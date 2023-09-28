@@ -20,7 +20,7 @@ function Workout() {
             user_id: context.user.id,
             workout_id: id
         }
-        fetch('user_workouts', {
+        fetch('/user_workouts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

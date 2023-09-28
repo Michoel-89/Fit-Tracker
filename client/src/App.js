@@ -18,7 +18,7 @@ function App() {
     const [workoutDropdown, setWorkoutDropdown] = useState('All')
 
     useEffect(() => {
-          fetch('check_session')
+          fetch('/check_session')
           .then(r => r.json())
           .then(r => {
           if(r.error === 'unauthorized') {
@@ -30,7 +30,7 @@ function App() {
       })
           .then(() => {
             if (isLoggedIn) {
-              fetch('user_workouts')
+              fetch('/user_workouts')
               .then(r => r.json())
               .then(r => {
                 setMyWorkouts(r)
@@ -41,13 +41,13 @@ function App() {
       }, [isLoggedIn])
     
     useEffect(() => {
-          fetch('workouts')
+          fetch('/workouts')
               .then(r => r.json())
               .then(r => {
                 setWorkouts(r)
           })
           .then(
-              fetch('messages')
+              fetch('/messages')
                 .then(r => r.json())
                 .then(r => {
                   setMessages(r)

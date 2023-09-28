@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 function LoggedInNavbar() {
     const context = useContext(Context)
     function handleLogoutClick() {
-        fetch('logout', {
+        fetch('/logout', {
             method: 'DELETE',
           }).then(() => {
             context.setIsLoggedIn(false)
