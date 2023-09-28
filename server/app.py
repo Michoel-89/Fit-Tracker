@@ -148,4 +148,4 @@ def logout():
     return {'error': 'session not found'}, 404
 
 if __name__ == '__main__':
-    socketio.run(app, port=5555)
+    socketio.run()
