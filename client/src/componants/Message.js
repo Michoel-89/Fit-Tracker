@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react"
 import { Context } from "../App"
-import messageIcon from '/home/michoel/post-grad-apps/fit-tracker/client/src/pictures/messageIcon.jpg'
 import io from 'socket.io-client';
 import { reformatTimestamp } from '../functions/functions';
 const socket = io('http://127.0.0.1:5555')
@@ -94,12 +93,9 @@ function handleDeleteMessage(id) {
             </div>
             </div>
           ) : (
-            <img
-              onClick={() => setRevealMsgs(true)}
-              src={messageIcon}
-              alt="message icon"
-              className="cursor-pointer w-15 h-14 rounded-2xl  "
-            />
+            <span onClick={() => setRevealMsgs(true)} class="material-symbols-outlined" style={{cursor: 'pointer', fontSize: '4em', marginRight: '.2em' }}>
+chat
+</span>
           )}
         </div>
       );
