@@ -9,7 +9,7 @@ from flask_socketio import SocketIO, emit
 load_dotenv()
 import psycopg2
 import os
-print(os.getcwd())
+print('current directory',os.getcwd())
 app = Flask(__name__, static_url_path='', static_folder='../client/build', template_folder='../client/build')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('db_url')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
