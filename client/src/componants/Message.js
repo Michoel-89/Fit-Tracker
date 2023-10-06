@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import { Context } from "../App"
 import io from 'socket.io-client';
 import { reformatTimestamp } from '../functions/functions';
-const socket = io('http://127.0.0.1:5555')
+const socket = io('https://fit-tracker-g614.onrender.com')
 
 function Message() {
     const [revealMsgs, setRevealMsgs] = useState(false)
