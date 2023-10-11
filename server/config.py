@@ -25,5 +25,5 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 bcrypt = Bcrypt(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
-CORS(app, resources={r"/*":{"origins":"*"}})
+socketio = SocketIO(app, cors_allowed_origins="https://fit-tracker-g614.onrender.com")
+CORS(app, resources={r"/*":{"origins":['https://fit-tracker-g614.onrender.com']}})
